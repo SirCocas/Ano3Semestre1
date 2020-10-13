@@ -1,7 +1,7 @@
 # Análise e Modelação de Sistemas
 - [ ] tratar da bibliografia
 
-## Fundamentos de redes
+## Fundamentos de Redes
 - [ ] tratar da bibliografia
 
 ### Introdução a Inteligência Artificial 
