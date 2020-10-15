@@ -5,7 +5,7 @@
 - [ ] ler bibliografia
 
 ### Introdução a Inteligência Artificial 
-- [ ] refazer programação funcional (e fazer os que não fiz lmao)
+- [ ] acabar programação funcional
 
 #### Sistemas de Operação
 - [ ] ler livro físico
