@@ -1,12 +1,12 @@
 # Análise e Modelação de Sistemas
-- [ ] tratar da bibliografia
+- [ ] ler bibliografia 
 
 ## Fundamentos de Redes
-- [ ] tratar da bibliografia
+- [ ] ler bibliografia
 
 ### Introdução a Inteligência Artificial 
 - [ ] refazer programação funcional (e fazer os que não fiz lmao)
-- [ ] tratar da bibliografia 
 
 #### Sistemas de Operação
-- [ ] tratar da bibliografia 
+- [ ] ler livro físico
+- [ ] ler livro do dinossauro
