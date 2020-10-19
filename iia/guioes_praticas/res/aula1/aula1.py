@@ -179,6 +179,20 @@ def tupleSmall(list):
 
 
 #3.8
+def mean(list):
+    if(list ==  []):
+        return (None, None)
+    summ = recsum(list)
+    leng = length(list)
+    if(not leng%2):  #even size
+        return (summ/leng,(list[leng//2]+ list[(leng//2)-1])/2 )  #NOTE: division has to be of int type and it always rounds up
+    return (summ/leng, list[leng//2])
+
+def recsum(list):
+    if(list == []):
+        return 0
+    return sum(list[1:]) + list[0]
+
 
 #4.1
 four_one = lambda x: x%2==0 
@@ -253,11 +267,7 @@ def smallestThree(list, comparison):
         return (None, None, [])
     currentSmallest = smallestThree(list[1:], comparison)
     if(currentSmallest[0] == None ):
-        return (list[0],None , [])
-    if(currentSmallest[1] == None):
-        if(comparison(currentSmallest[0], list[0])>0):
-            return(list[0], currentSmallest[0], [])
-        return (currentSmallest[0], list[0], [])
+        return (list[0],list[0] , [])
     if(comparison(currentSmallest[0], list[0])>0):
         return (list[0], currentSmallest[0],[currentSmallest[1]] + currentSmallest[2])
     if(comparison(currentSmallest[1], list[0])>0):
@@ -287,10 +297,32 @@ def joinOrdered(list1,list2, comp):
     return [list2[0]] + joinOrdered(list1, list2[1:], comp)
      
 #4.14
+def explodeFunc(list, func):
+    if(list == []):
+        return []
+    return applyFunc(list[0], func) + explodeFunc(list[1:], func)
+
+def applyFunc(list, func):
+    if(list == []):
+        return []
+    return [func(list[0])] + applyFunc(list[1:], func)
 
 #4.15
+def applyPair(list1, list2, func):
+    if(length(list1)!= length(list2)):
+        return None
+    if(list1 == []):
+        return []
+    return [func(list1[0], list2[0])] + applyPair(list1[1:], list2[1:], func)
+
 
 #4.16
+!! problema de interpretação?!!
+def applyFuncNeutral(list, neutral, func):
+    if(list == []):
+        return []
+    temp = replace(list[0], neutral,[])
+    return [func(temp)] + applyFuncNeutral(list[1:], neutral, func)
 
 #5.1a
 
