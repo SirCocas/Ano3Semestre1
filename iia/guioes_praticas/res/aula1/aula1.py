@@ -16,40 +16,167 @@ def sum(list):
     return list[0]+ sum(list[1:])
 
 #1.3
+def check(list, elem):
+    if(list == []):
+        return False
+    if(list[0] == elem):
+        return True
+    return check(list[1:], elem)
 
 #1.4
+def join(list1, list2):
+    if(list2 == []):
+        return list1
+    return join(list1 + [list2[0]], list2[1:])
 
 #1.5
+def reverse(list):
+    if(list == []):
+        return []
+    return reverse(list[1:])+ [list[0]]
 
 #1.6
+def capicua(list):
+    if(list == []):
+        return True
+    if(list[0]==list[-1]):
+        return capicua(list[1:-1])
+    return False
 
 #1.7
+def explodeList(list):
+    if(list == []):
+        return []
+    return list[0] + explodeList(list[1:])
+
 
 #1.8
+def replace(list, x,y):
+    if(list == []):
+        return []
+    if(list[0] == x):
+        list[0] = y
+    return [list[0]] + replace(list[1:],x,y)
+
 
 #1.9
+def addListsOrdered(list1,list2):
+    if(list1 == []):
+        return list2
+    if(list2 == []):
+        return list1
+    if(list1[0]> list2[0]):
+        return [list2[0]] + addListsOrdered(list1, list2[1:])
+    return [list1[0]] + addListsOrdered(list1[1:], list2)
+
 
 #1.10
-
+def subSets(list):
+    if(list == []):
+        return [[]]
+    prev = subSets(list[1:])
+    other =  [ [list[0]] + s for s in prev ]
+    return prev+other
+    
 #2.1
+def addPairs(list):
+    if(list == []):
+        return ([], [])
+    prev = addPairs(list[1:])
+    return ([list[0][0]] + prev[0] , [list[0][1]] + prev[1])
+
 
 #2.2
+def count(list, elem):
+    if(list == []):
+        return ([], 0)
+    prev = count(list[1:], elem)
+    if(list[0] == elem):
+        return(prev[0], prev[1]+1)
+    return ([list[0]] + prev[0], prev[1])
+
 
 #2.3
+def listPair(list):
+    if(list == []):
+        return []
+    current = count(list, list[0])
+    return [(list[0], current[1])] + listPair(current[0])
+
 
 #3.1
+def top(list):
+    if(list == []):
+        return None
+    return list[0]
 
 #3.2
+def bottom(list):
+    if(list == []):
+        return None
+    return list[1:]
+
 
 #3.3
+def juntar(list1,list2):
+    if(length(list1)!= length(list2)):
+        return None
+    if(list1 == [] and list2 == []):
+        return []
+    return [(list1[0], list2[0])] + juntar(list1[1:], list2[1:]) 
+
 
 #3.4
+def smallestElem(list):
+    if(list == []):
+        return None
+    prev = smallestElem(list[1:])
+    if(prev == None or list[0]<prev):
+        return list[0]
+    return prev
+
 
 #3.5
+def smallestListNumber(list):
+    if(list == []):
+        return (None, [])
+    prev = smallestListNumber(list[1:])
+    if(prev[0] == None):
+        return(list[0], prev[1])
+    if(prev[0] > list[0]):
+        return (list[0], [prev[0]] + prev[1])
+    return (prev[0], [list[0]]+ prev[1])
+
+    
 
 #3.6
+def max_min(list):
+    if(list == []):
+        return (None, None)
+    prev = max_min(list[1:])
+    if(prev[0] == None): 
+        return (list[0], list[0])  #if one of them is none, both will be
+    if(prev[0]< list[0]):
+        return (list[0], prev[1])
+    if(prev[1]>list[0]):
+        return (prev[0], list[0])
+    return prev
+
+
 
 #3.7
+def tupleSmall(list):
+    if(list == []):
+        return (None, None, [])
+    currentSmallest = tupleSmall(list[1:])
+    if(currentSmallest[0] == None ):
+        return (list[0],list[0] , [])
+    if(currentSmallest[0]>list[0]):
+        return (list[0], currentSmallest[0],[currentSmallest[1]] + currentSmallest[2])
+    if(currentSmallest[1]>list[0]):
+        return(currentSmallest[0], list[0], [currentSmallest[1]] + currentSmallest[2])
+    return (currentSmallest[0], currentSmallest[1], [list[0]] + currentSmallest[2])
+
 
 #3.8
 
@@ -72,21 +199,21 @@ def four_five(f,g,h):
 
 
 #4.6
-def allList(list, func):
+def allListUniv(list, func):
     if(list == []):
         return True
     if(not func(list[0])):
         return False
-    return allList(list[1:], func)
+    return allListUniv(list[1:], func)
 
 
 #4.7
-def allList(list, func):
+def allListExist(list, func):
     if(list == []):
         return False
     if(func(list[0]) == True):
         return True
-    return allList(list[1:], func)
+    return allListExist(list[1:], func)
 
 #4.8 
 def contains(small, big):

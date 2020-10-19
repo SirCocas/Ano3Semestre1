@@ -8,5 +8,6 @@
 - [ ] acabar programação funcional
 
 #### Sistemas de Operação
+- [ ] fazer funções do mksofs
 - [ ] ler livro físico
 - [ ] ler livro do dinossauro
