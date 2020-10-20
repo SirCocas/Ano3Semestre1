@@ -317,12 +317,20 @@ def applyPair(list1, list2, func):
 
 
 #4.16
-!! problema de interpretação?!!
-def applyFuncNeutral(list, neutral, func):
+#we're assuming that in this case that the function works like a numeral operation
+def applyToAll(list, neut, func):
     if(list == []):
         return []
-    temp = replace(list[0], neutral,[])
-    return [func(temp)] + applyFuncNeutral(list[1:], neutral, func)
+    return [function(list[0], neut, func)] + applyToAll(list[1:], neut, func)
+
+def function(list,neut, func):
+    if(list ==[]):
+        return neut
+    prev = function(list[1:],neut, func)
+    return func(list[0],prev)
+
+
+print(applyToAll([[1,2,3],[4,3], [8,7,-1]],0, lambda x,y: x+y))
 
 #5.1a
 
