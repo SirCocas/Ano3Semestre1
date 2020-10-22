@@ -330,11 +330,25 @@ def function(list,neut, func):
     return func(list[0],prev)
 
 
-print(applyToAll([[1,2,3],[4,3], [8,7,-1]],0, lambda x,y: x+y))
-
 #5.1a
+def selectSort(list, index = 0):
+    if(index == length(list)):
+        return list
+    temp = minimumIndex(list, index, length(list)-1)
 
+    if(temp != index):
+        list[temp], list[index] = list[index], list[temp]
+
+    return selectSort(list, index + 1)
+
+def minimumIndex(list, i, j):
+    if(i==j):
+        return i
+    temp = minimumIndex(list, i+1, j)
+    return (i if list[i] < list[temp] else temp)
+    
 #5.1b
+
 
 #5.1c
 
