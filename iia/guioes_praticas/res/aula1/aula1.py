@@ -346,10 +346,90 @@ def minimumIndex(list, i, j):
         return i
     temp = minimumIndex(list, i+1, j)
     return (i if list[i] < list[temp] else temp)
-    
-#5.1b
 
+#5.1b
+def bubbleSort(list, n = None):
+    if(n == None):
+        return(bubbleSort(list, length(list)))
+    if n == 1:
+        return list
+    for i in range(n-1):
+        if(list[i]>list[i+1]):
+            list[i], list[i+1] = list[i+1], list[i]
+    return bubbleSort(list, n-1)
 
 #5.1c
+def quickSort(list, low=None, high=None):
+    if(low == None or high == None ):  #second is unnecessary but doesn't hurt to check
+        return quickSort(list,0, length(list)-1)
+    if(low<high):
+        index = partition(list, low, high)
+        quickSort(list, low, index-1)
+        quickSort(list, index+1, high)
+    return list
+
+def partition(list, low, high):
+    pivot = list[high]
+    i = low - 1
+    for j in range(low, high):
+        if(list[j]<= pivot):
+            i=i+1
+            list[i], list[j] = list[j], list[i]
+    list[i+1], list[high] = list[high], list[i+1]   
+    return i+1
+
 
 #5.2
+
+#5.2a
+def selectSortComp(list, comp, index = 0):
+    if(index == length(list)):
+        return list
+    temp = minimumIndexComp(list, index, length(list)-1, comp)
+
+    if(temp != index):
+        list[temp], list[index] = list[index], list[temp]
+
+    return selectSortComp(list,  comp, index + 1)
+
+def minimumIndexComp(list, i, j, comp):
+    if(i==j):
+        return i
+    temp = minimumIndexComp(list, i+1, j, comp)
+    return (i if comp(list[i], list[temp]) < 0 else temp)
+
+
+#5.2b
+def bubbleSortComp(list,comp, n = None):
+    if(n == None):
+        return(bubbleSortComp(list,comp, length(list)))
+    if n == 1:
+        return list
+    for i in range(n-1):
+        if(comp(list[i],list[i+1])>0):
+            list[i], list[i+1] = list[i+1], list[i]
+    return bubbleSortComp(list,comp, n-1)
+
+
+
+#5.2c
+def quickSortComp(list,comp, low=None, high=None):
+    if(low == None or high == None ):  #second is unnecessary but doesn't hurt to check
+        return quickSortComp(list,comp,0, length(list)-1)
+    if(low<high):
+        index = partitionComp(list,comp, low, high)
+        quickSortComp(list,comp, low, index-1)
+        quickSortComp(list,comp, index+1, high)
+    return list
+
+def partitionComp(list,comp, low, high):
+    pivot = list[high]
+    i = low - 1
+    for j in range(low, high):
+        if(comp(list[j], pivot)<= 0):
+            i=i+1
+            list[i], list[j] = list[j], list[i]
+    list[i+1], list[high] = list[high], list[i+1]   
+    return i+1
+
+print(quickSortComp([1,6,2,5,0,21,-1], lambda x,y:x-y))

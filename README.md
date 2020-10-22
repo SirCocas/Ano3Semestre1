@@ -5,7 +5,7 @@
 - [ ] ler bibliografia
 
 ### Introdução a Inteligência Artificial 
-- [ ] acabar programação funcional (parte 5 + desenvolvimento de classes)
+- [ ] acabar programação funcional (desenvolvimento de classes)
 
 #### Sistemas de Operação
 - [ ] fazer funções do mksofs
