@@ -5,9 +5,9 @@
 - [ ] ler bibliografia
 
 ### Introdução a Inteligência Artificial 
-- [ ] acabar programação funcional (desenvolvimento de classes)
+- [ ] acabar programação funcional (desenvolvimento de classes-> vou no 3 das contas)
 
 #### Sistemas de Operação
-- [ ] fazer funções do mksofs
+- [x] fazer funções do mksofs (soFillInodeTable())
 - [ ] ler livro físico
 - [ ] ler livro do dinossauro

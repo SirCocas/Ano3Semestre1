@@ -432,4 +432,74 @@ def partitionComp(list,comp, low, high):
     list[i+1], list[high] = list[high], list[i+1]   
     return i+1
 
-print(quickSortComp([1,6,2,5,0,21,-1], lambda x,y:x-y))
+
+#Desenvolvimento de classes
+#1
+class Operation:
+
+    def __init__(self, thing):
+        self.value = thing
+
+    def __str__(self):
+        return str(self.value)
+
+    def solve(self, input):
+        return self.value.solve(input)
+
+
+class Constant:
+
+    def __init__(self, value):
+        self.value = value
+    
+    def __str__(self):
+        return str(self.value)
+
+    def solve(self,input):
+        return self.value
+
+
+class Variable:
+    def __init__(self, value):
+        self.value = value
+
+    def __str__(self):
+        return str(self.value)
+    
+    def solve(self, input):
+        return input
+    
+
+
+class Sum:
+    def __init__(self, left, right):
+        self.left = left
+        self.right = right
+    
+    def __str__(self):
+        return '(' + str(self.left) +" + "+ str(self.right) + ')'
+    
+    def solve(self,input):
+        return self.left.solve(input) + self.right.solve(input)
+    
+
+class Mult:
+    def __init__(self, left, right):
+        self.left = left
+        self.right = right
+
+    def __str__(self):
+        return '(' + str(self.left) + " * "+ str(self.right) + ')'
+
+    def solve(self,input):
+        return self.left.solve(input) * self.right.solve(input)
+
+
+conta = Operation(Mult(Constant(5), Sum(Variable('x'), Constant(7))))
+print(str(conta))
+print(conta.solve(1))
+
+
+
+
+
