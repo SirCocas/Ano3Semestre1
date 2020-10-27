@@ -445,6 +445,12 @@ class Operation:
 
     def solve(self, input):
         return self.value.solve(input)
+    
+    def red(self):
+        return self.value.red()
+
+    def derive(self):
+        return self.value.derive().red()
 
 
 class Constant:
@@ -457,6 +463,12 @@ class Constant:
 
     def solve(self,input):
         return self.value
+    
+    def red(self):
+        return self
+    
+    def derive(self):
+        return Constant(0)
 
 
 class Variable:
@@ -468,6 +480,12 @@ class Variable:
     
     def solve(self, input):
         return input
+
+    def red(self):
+        return self
+    
+    def derive(self):
+        return Constant(1)
     
 
 
@@ -482,6 +500,18 @@ class Sum:
     def solve(self,input):
         return self.left.solve(input) + self.right.solve(input)
     
+    def red(self):
+        if(isinstance(self.right ,Constant)):
+            if(self.right.value == 0):
+                return self.left.red()
+        if(isinstance(self.left, Constant)):
+            if(self.left.value == 0):
+                return self.right.red()
+        return Sum(self.left.red(), self.right.red())
+
+    def derive(self):
+        return Sum(self.left.derive(), self.right.derive()).red()
+        
 
 class Mult:
     def __init__(self, left, right):
@@ -494,12 +524,19 @@ class Mult:
     def solve(self,input):
         return self.left.solve(input) * self.right.solve(input)
 
+    def red(self):
+        if(isinstance(self.right ,Constant)):
+            if(self.right.value == 1):
+                return self.left.red()
+            if(self.right.value == 0):
+                return Constant(0)
+        if(isinstance(self.left, Constant)):
+            if(self.left.value == 1):
+                return self.right.red()
+            if(self.left.value == 0):
+                return Constant(0)
+        return Mult(self.left.red(), self.right.red())
 
-conta = Operation(Mult(Constant(5), Sum(Variable('x'), Constant(7))))
-print(str(conta))
-print(conta.solve(1))
-
-
-
-
+    def derive(self):
+        return Sum(Mult(self.left.derive(), self.right), Mult(self.left, self.right.derive())).red()
 
