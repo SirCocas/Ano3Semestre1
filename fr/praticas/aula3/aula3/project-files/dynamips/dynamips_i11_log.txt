@@ -1,0 +1,32 @@
+Nov 12 11:07:48.771 HYPERVISOR: Release 0.2.17-x86/Windows (tag 2017072410)
+Nov 12 11:07:48.771 HYPERVISOR: Started on IP = 127.0.0.1, TCP port = 52671.
+Nov 12 11:07:49.266 HYPERVISOR: exec_cmd: hypervisor version 
+Nov 12 11:07:49.267 HYPERVISOR: exec_cmd: hypervisor working_dir C:\Users\sofas\Documents\GitHub\Ano3Semestre1\fr\praticas\aula3\aula3\project-files\dynamips 
+Nov 12 11:07:49.267 GENERAL: working_dir=C:\Users\sofas\Documents\GitHub\Ano3Semestre1\fr\praticas\aula3\aula3\project-files\dynamips
+Nov 12 11:07:49.267 HYPERVISOR: exec_cmd: hypervisor working_dir C:\Users\sofas\Documents\GitHub\Ano3Semestre1\fr\praticas\aula3\aula3\project-files\dynamips\7b4f3be1-21ee-407e-9a74-160b0bb3d13f 
+Nov 12 11:07:49.276 GENERAL: working_dir=C:\Users\sofas\Documents\GitHub\Ano3Semestre1\fr\praticas\aula3\aula3\project-files\dynamips\7b4f3be1-21ee-407e-9a74-160b0bb3d13f
+Nov 12 11:07:49.276 HYPERVISOR: exec_cmd: vm create ESW4 5 c3725 
+Nov 12 11:07:49.277 VM: VM ESW4 created.
+Nov 12 11:07:49.278 HYPERVISOR: exec_cmd: vm set_con_tcp_port ESW4 5009 
+Nov 12 11:07:49.278 HYPERVISOR: exec_cmd: c3725 get_mac_addr ESW4 
+Nov 12 11:07:49.278 HYPERVISOR: exec_cmd: vm set_ios ESW4 C:/Users/sofas/GNS3/images/IOS/c3725-advipservicesk9-mz.124-21.image 
+Nov 12 11:07:49.279 HYPERVISOR: exec_cmd: vm get_status ESW4 
+Nov 12 11:07:49.279 HYPERVISOR: exec_cmd: vm set_idle_pc ESW4 0x60236160 
+Nov 12 11:07:49.279 HYPERVISOR: exec_cmd: vm set_exec_area ESW4 64 
+Nov 12 11:07:49.279 HYPERVISOR: exec_cmd: vm set_nvram ESW4 256 
+Nov 12 11:07:49.279 HYPERVISOR: exec_cmd: vm set_disk0 ESW4 1 
+Nov 12 11:07:49.279 HYPERVISOR: exec_cmd: vm get_status ESW4 
+Nov 12 11:07:49.280 HYPERVISOR: exec_cmd: vm slot_add_binding ESW4 1 0 NM-16ESW 
+Nov 12 11:07:49.377 HYPERVISOR: exec_cmd: vm set_ios ESW4 C:/Users/sofas/GNS3/images/IOS/c3725-advipservicesk9-mz.124-21.image 
+Nov 12 11:07:50.670 HYPERVISOR: exec_cmd: vm set_ios ESW4 C:/Users/sofas/GNS3/images/IOS/c3725-advipservicesk9-mz.124-21.image 
+Nov 12 11:08:08.224 HYPERVISOR: exec_cmd: nio create_udp udp-9f22aeef-87a7-45bc-be61-c56374fb83c9 10032 127.0.0.1 10033 
+Nov 12 11:08:08.447 HYPERVISOR: exec_cmd: vm slot_add_nio_binding ESW4 1 1 udp-9f22aeef-87a7-45bc-be61-c56374fb83c9 
+Nov 12 11:08:08.448 HYPERVISOR: exec_cmd: vm get_status ESW4 
+Nov 12 11:08:15.051 HYPERVISOR: exec_cmd: nio create_udp udp-1a8341f0-27b8-4f8c-9632-04cdb5c631e9 10036 127.0.0.1 10037 
+Nov 12 11:08:15.063 HYPERVISOR: exec_cmd: vm slot_add_nio_binding ESW4 1 0 udp-1a8341f0-27b8-4f8c-9632-04cdb5c631e9 
+Nov 12 11:08:15.064 HYPERVISOR: exec_cmd: vm get_status ESW4 
+Nov 12 11:08:22.827 HYPERVISOR: exec_cmd: vm set_ghost_status ESW4 2 
+Nov 12 11:08:22.828 HYPERVISOR: exec_cmd: vm set_ghost_file ESW4 C:\Users\sofas\Documents\GitHub\Ano3Semestre1\fr\praticas\aula3\aula3\project-files\dynamips\c3725-advipservicesk9-mz.124-21.image-128.ghost 
+Nov 12 11:08:22.829 HYPERVISOR: exec_cmd: vm get_status ESW4 
+Nov 12 11:08:22.829 HYPERVISOR: exec_cmd: vm set_config ESW4 configs\i5_startup-config.cfg 
+Nov 12 11:08:22.829 HYPERVISOR: exec_cmd: vm start ESW4 

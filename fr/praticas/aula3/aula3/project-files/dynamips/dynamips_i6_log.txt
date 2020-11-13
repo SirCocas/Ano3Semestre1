@@ -1,0 +1,66 @@
+Nov 12 10:42:22.089 HYPERVISOR: Release 0.2.17-x86/Windows (tag 2017072410)
+Nov 12 10:42:22.089 HYPERVISOR: Started on IP = 127.0.0.1, TCP port = 52273.
+Nov 12 10:42:22.577 HYPERVISOR: exec_cmd: hypervisor version 
+Nov 12 10:42:22.578 HYPERVISOR: exec_cmd: hypervisor working_dir C:\Users\sofas\Documents\GitHub\Ano3Semestre1\fr\praticas\aula3\aula3\project-files\dynamips 
+Nov 12 10:42:22.584 GENERAL: working_dir=C:\Users\sofas\Documents\GitHub\Ano3Semestre1\fr\praticas\aula3\aula3\project-files\dynamips
+Nov 12 10:42:22.584 HYPERVISOR: exec_cmd: hypervisor working_dir C:\Users\sofas\Documents\GitHub\Ano3Semestre1\fr\praticas\aula3\aula3\project-files\dynamips\a4a95aea-03a2-467a-ba72-25ae6ebb90d7 
+Nov 12 10:42:22.585 GENERAL: working_dir=C:\Users\sofas\Documents\GitHub\Ano3Semestre1\fr\praticas\aula3\aula3\project-files\dynamips\a4a95aea-03a2-467a-ba72-25ae6ebb90d7
+Nov 12 10:42:22.585 HYPERVISOR: exec_cmd: vm create ESW1 1 c3725 
+Nov 12 10:42:22.588 VM: VM ESW1 created.
+Nov 12 10:42:22.589 HYPERVISOR: exec_cmd: vm set_con_tcp_port ESW1 5000 
+Nov 12 10:42:22.589 HYPERVISOR: exec_cmd: c3725 get_mac_addr ESW1 
+Nov 12 10:42:22.590 HYPERVISOR: exec_cmd: vm set_ios ESW1 C:/Users/sofas/GNS3/images/IOS/c3725-advipservicesk9-mz.124-21.image 
+Nov 12 10:42:22.590 HYPERVISOR: exec_cmd: vm get_status ESW1 
+Nov 12 10:42:22.591 HYPERVISOR: exec_cmd: vm set_idle_pc ESW1 0x60236160 
+Nov 12 10:42:22.591 HYPERVISOR: exec_cmd: vm set_exec_area ESW1 64 
+Nov 12 10:42:22.592 HYPERVISOR: exec_cmd: vm set_nvram ESW1 256 
+Nov 12 10:42:22.592 HYPERVISOR: exec_cmd: vm set_disk0 ESW1 1 
+Nov 12 10:42:22.592 HYPERVISOR: exec_cmd: vm get_status ESW1 
+Nov 12 10:42:22.592 HYPERVISOR: exec_cmd: vm slot_add_binding ESW1 1 0 NM-16ESW 
+Nov 12 10:42:22.656 HYPERVISOR: exec_cmd: vm set_ios ESW1 C:/Users/sofas/GNS3/images/IOS/c3725-advipservicesk9-mz.124-21.image 
+Nov 12 10:42:34.336 HYPERVISOR: exec_cmd: vm set_ghost_status ESW1 2 
+Nov 12 10:42:34.337 HYPERVISOR: exec_cmd: vm set_ghost_file ESW1 C:\Users\sofas\Documents\GitHub\Ano3Semestre1\fr\praticas\aula3\aula3\project-files\dynamips\c3725-advipservicesk9-mz.124-21.image-128.ghost 
+Nov 12 10:42:34.338 HYPERVISOR: exec_cmd: vm get_status ESW1 
+Nov 12 10:42:34.338 HYPERVISOR: exec_cmd: vm set_config ESW1 configs\i1_startup-config.cfg 
+Nov 12 10:42:34.339 HYPERVISOR: exec_cmd: vm start ESW1 
+Nov 12 10:44:34.647 HYPERVISOR: exec_cmd: vm extract_config ESW1 
+Nov 12 10:44:34.672 HYPERVISOR: exec_cmd: vm extract_config ESW1 
+Nov 12 10:45:04.650 HYPERVISOR: exec_cmd: vm extract_config ESW1 
+Nov 12 10:45:04.672 HYPERVISOR: exec_cmd: vm extract_config ESW1 
+Nov 12 10:46:04.659 HYPERVISOR: exec_cmd: vm extract_config ESW1 
+Nov 12 10:46:04.675 HYPERVISOR: exec_cmd: vm extract_config ESW1 
+Nov 12 10:47:04.676 HYPERVISOR: exec_cmd: vm extract_config ESW1 
+Nov 12 10:47:04.695 HYPERVISOR: exec_cmd: vm extract_config ESW1 
+Nov 12 10:49:04.685 HYPERVISOR: exec_cmd: vm extract_config ESW1 
+Nov 12 10:49:04.706 HYPERVISOR: exec_cmd: vm extract_config ESW1 
+Nov 12 10:49:23.526 HYPERVISOR: exec_cmd: vm set_ghost_status ESW1 2 
+Nov 12 10:49:23.527 HYPERVISOR: exec_cmd: vm set_ghost_file ESW1 C:\Users\sofas\Documents\GitHub\Ano3Semestre1\fr\praticas\aula3\aula3\project-files\dynamips\c3725-advipservicesk9-mz.124-21.image-128.ghost 
+Nov 12 10:49:23.527 HYPERVISOR: exec_cmd: vm get_status ESW1 
+Nov 12 10:51:40.189 HYPERVISOR: exec_cmd: nio create_udp udp-7bb52d30-3dd5-4a05-a77b-736307173be6 10002 127.0.0.1 10003 
+Nov 12 10:51:40.444 HYPERVISOR: exec_cmd: vm slot_add_nio_binding ESW1 1 5 udp-7bb52d30-3dd5-4a05-a77b-736307173be6 
+Nov 12 10:51:40.445 HYPERVISOR: exec_cmd: vm get_status ESW1 
+Nov 12 10:51:40.447 HYPERVISOR: exec_cmd: vm slot_enable_nio ESW1 1 5 
+Nov 12 10:51:50.003 HYPERVISOR: exec_cmd: nio create_udp udp-7566baec-9242-432e-a1a3-b4d4c21fa944 10006 127.0.0.1 10007 
+Nov 12 10:51:50.012 HYPERVISOR: exec_cmd: vm slot_add_nio_binding ESW1 1 0 udp-7566baec-9242-432e-a1a3-b4d4c21fa944 
+Nov 12 10:51:50.013 HYPERVISOR: exec_cmd: vm get_status ESW1 
+Nov 12 10:51:50.013 HYPERVISOR: exec_cmd: vm slot_enable_nio ESW1 1 0 
+Nov 12 10:52:40.072 HYPERVISOR: exec_cmd: nio create_udp udp-f3046294-77f7-4c80-a1e6-8f9c5133b3cf 10016 127.0.0.1 10017 
+Nov 12 10:52:40.073 HYPERVISOR: exec_cmd: vm slot_add_nio_binding ESW1 0 0 udp-f3046294-77f7-4c80-a1e6-8f9c5133b3cf 
+Nov 12 10:52:40.074 HYPERVISOR: exec_cmd: vm get_status ESW1 
+Nov 12 10:52:40.074 HYPERVISOR: exec_cmd: vm slot_enable_nio ESW1 0 0 
+Nov 12 10:52:41.732 HYPERVISOR: exec_cmd: vm set_ghost_status ESW1 2 
+Nov 12 10:52:41.737 HYPERVISOR: exec_cmd: vm set_ghost_file ESW1 C:\Users\sofas\Documents\GitHub\Ano3Semestre1\fr\praticas\aula3\aula3\project-files\dynamips\c3725-advipservicesk9-mz.124-21.image-128.ghost 
+Nov 12 10:52:41.738 HYPERVISOR: exec_cmd: vm get_status ESW1 
+Nov 12 10:57:14.655 HYPERVISOR: exec_cmd: vm get_status ESW1 
+Nov 12 10:57:14.655 HYPERVISOR: exec_cmd: vm slot_disable_nio ESW1 0 0 
+Nov 12 10:57:14.672 HYPERVISOR: exec_cmd: vm slot_remove_nio_binding ESW1 0 0 
+Nov 12 10:57:14.673 HYPERVISOR: exec_cmd: nio delete udp-f3046294-77f7-4c80-a1e6-8f9c5133b3cf 
+Nov 12 10:57:31.499 HYPERVISOR: exec_cmd: nio create_udp udp-1b898bb8-4823-4282-b832-398898ac7f27 10016 127.0.0.1 10017 
+Nov 12 10:57:31.502 HYPERVISOR: exec_cmd: vm slot_add_nio_binding ESW1 1 15 udp-1b898bb8-4823-4282-b832-398898ac7f27 
+Nov 12 10:57:31.502 HYPERVISOR: exec_cmd: vm get_status ESW1 
+Nov 12 10:57:31.502 HYPERVISOR: exec_cmd: vm slot_enable_nio ESW1 1 15 
+Nov 12 11:04:34.783 HYPERVISOR: exec_cmd: vm extract_config ESW1 
+Nov 12 11:04:34.805 HYPERVISOR: exec_cmd: vm extract_config ESW1 
+Nov 12 11:08:22.801 HYPERVISOR: exec_cmd: vm set_ghost_status ESW1 2 
+Nov 12 11:08:22.803 HYPERVISOR: exec_cmd: vm set_ghost_file ESW1 C:\Users\sofas\Documents\GitHub\Ano3Semestre1\fr\praticas\aula3\aula3\project-files\dynamips\c3725-advipservicesk9-mz.124-21.image-128.ghost 
+Nov 12 11:08:22.804 HYPERVISOR: exec_cmd: vm get_status ESW1 

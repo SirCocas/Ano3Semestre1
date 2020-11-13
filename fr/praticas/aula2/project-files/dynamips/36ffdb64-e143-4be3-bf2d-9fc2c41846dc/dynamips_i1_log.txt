@@ -1,0 +1,24 @@
+Oct 29 09:32:31.322 HYPERVISOR: Release 0.2.17-x86/Windows (tag 2017072410)
+Oct 29 09:32:31.324 HYPERVISOR: Started on IP = 127.0.0.1, TCP port = 59315.
+Oct 29 09:32:31.860 HYPERVISOR: exec_cmd: hypervisor version 
+Oct 29 09:32:31.861 HYPERVISOR: exec_cmd: hypervisor working_dir C:\Users\sofas\Documents\GitHub\Ano3Semestre1\fr\praticas\aula2\project-files\dynamips 
+Oct 29 09:32:31.868 GENERAL: working_dir=C:\Users\sofas\Documents\GitHub\Ano3Semestre1\fr\praticas\aula2\project-files\dynamips
+Oct 29 09:32:31.869 HYPERVISOR: exec_cmd: ethsw create Switch1 
+Oct 29 09:32:32.628 HYPERVISOR: exec_cmd: nio create_udp udp-879f407d-d438-4de4-8221-52870a04990d 10001 127.0.0.1 10000 
+Oct 29 09:32:32.628 HYPERVISOR: exec_cmd: ethsw add_nio Switch1 udp-879f407d-d438-4de4-8221-52870a04990d 
+Oct 29 09:32:32.662 HYPERVISOR: exec_cmd: ethsw set_access_port Switch1 udp-879f407d-d438-4de4-8221-52870a04990d 1 
+Oct 29 09:32:32.897 HYPERVISOR: exec_cmd: nio create_udp udp-495707a4-ca7f-418c-b3b6-738731612403 10007 127.0.0.1 10006 
+Oct 29 09:32:32.897 HYPERVISOR: exec_cmd: ethsw add_nio Switch1 udp-495707a4-ca7f-418c-b3b6-738731612403 
+Oct 29 09:32:32.928 HYPERVISOR: exec_cmd: ethsw set_access_port Switch1 udp-495707a4-ca7f-418c-b3b6-738731612403 1 
+Oct 29 09:32:32.980 HYPERVISOR: exec_cmd: nio create_udp udp-67951601-a912-48c5-adda-f6fef4fa8f7b 10008 127.0.0.1 10009 
+Oct 29 09:32:32.980 HYPERVISOR: exec_cmd: ethsw add_nio Switch1 udp-67951601-a912-48c5-adda-f6fef4fa8f7b 
+Oct 29 09:32:32.994 HYPERVISOR: exec_cmd: ethsw set_access_port Switch1 udp-67951601-a912-48c5-adda-f6fef4fa8f7b 1 
+Oct 29 09:37:47.796 HYPERVISOR: exec_cmd: nio bind_filter udp-495707a4-ca7f-418c-b3b6-738731612403 2 capture 
+Oct 29 09:37:47.796 HYPERVISOR: exec_cmd: nio setup_filter udp-495707a4-ca7f-418c-b3b6-738731612403 2 en10mb C:\Users\sofas\Documents\GitHub\Ano3Semestre1\fr\praticas\aula2\project-files\captures\PC1_Ethernet0_to_Switch1_Ethernet0.pcap 
+Oct 29 09:57:32.097 HYPERVISOR: exec_cmd: nio bind_filter udp-67951601-a912-48c5-adda-f6fef4fa8f7b 2 capture 
+Oct 29 09:57:32.098 HYPERVISOR: exec_cmd: nio setup_filter udp-67951601-a912-48c5-adda-f6fef4fa8f7b 2 en10mb C:\Users\sofas\Documents\GitHub\Ano3Semestre1\fr\praticas\aula2\project-files\captures\Switch1_Ethernet1_to_R1_FastEthernet00.pcap 
+Oct 29 10:04:48.671 HYPERVISOR: exec_cmd: nio unbind_filter udp-67951601-a912-48c5-adda-f6fef4fa8f7b 2 
+Oct 29 11:30:14.995 HYPERVISOR: exec_cmd: ethsw delete Switch1 
+Oct 29 11:30:15.039 HYPERVISOR: exec_cmd: hypervisor stop 
+Oct 29 11:30:15.082 HYPERVISOR: Stopped.
+Oct 29 11:30:15.091 GENERAL: reset done.
