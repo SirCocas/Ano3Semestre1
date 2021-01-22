@@ -1,0 +1,34 @@
+1 - Índice  da entrada pct do processo.
+
+2 - Campo prior na entrada pct com valor da prioridade;
+Array de 10 filas ready to run.
+
+3 - 
+void sem_down(unsigned int sem_index){
+
+	if(sem[sem_index].value>0){
+		sem[sem_index].value--;
+	}
+	else{
+		sleep(sem_index);
+	}
+}
+
+4 - 
+void dispatch(void){
+
+	BINODE *val;
+
+	disable_interrupts();
+	fifo_out(redtorun, val);
+
+	if(val==NULL){
+		pindex = -1;
+		return;
+	}
+
+	pindex = val->info;
+	pct[pindex].pstat = 0;
+	restore_context(pindex);
+
+}

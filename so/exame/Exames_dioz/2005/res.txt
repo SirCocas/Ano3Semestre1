@@ -1,0 +1,55 @@
+1 - Uma fila para cada prioridade.
+Pela equação, existem no máximo 30 filas diferentes de prioridade.
+
+2 - 
+Processos i/o intensivos, devido à recreditação ser também efetuada para os processos blocked.
+Assim sendo, estes processos quando bloqueados, vão somando créditos, quando acordados, ultrapassarão os processos cpu/intensivos na sua prioridade.
+
+3 - 
+BOOLEAN RTCservice(void){
+
+	if(pct[pindex].class!=SCHED_OTHER)
+		return FALSE;
+
+	if(--pct[pindex].prior==0)
+		return TRUE;
+
+	return FALSE;
+
+}
+
+4 - 
+void dispatch(void){
+	
+	int i, done = 0;
+	BINODE *val;
+
+	interrupts_disable();
+
+	for(i=0; i<2; i++){
+		fifo_out(sff_rtr[i], &val);
+		if(val!=NULL){
+			done = 1;
+			break;
+		}
+	}
+
+	if(done==0){
+		for(i=0; i<K; i++){
+			fifo_out(soth_rtr[i], &val);
+			if(val!=NULL){
+				done = 1;
+				break;
+			}
+		}
+	}
+
+	if(done==0){
+		pindex = 0;
+		return;
+	}
+	pindex = val->info;
+	pct[pindex].pstat = 0;
+	restore_context(pindex);
+
+}

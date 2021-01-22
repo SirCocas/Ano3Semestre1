@@ -1,0 +1,35 @@
+1 - 
+espera - inicializado com 0 (Para qualquer processo que fizer down, bloquear)
+ha_espaco - Inicializado com o nº de impressões livres(20)
+ha_trabalho - Inicializado com 0 (inicialmente, sem trabalho)
+
+2 - 
+Como as impressões são efetuadas por ordem, não há a hipótese de uma impressão ver o seu pedido adiado indefinidamente.
+
+3 - 
+void fifo_out(FIFO *fifo, PRINT_ORD **valp){
+	*valp = fifo->ord[fifo->pout];
+	fifo->pout = (fifo->pout + 1) % K;
+
+}
+
+4 - 
+char *print_fic(char *nome_fic){
+	
+	PRINT_ORD print;
+
+	print.nome_fic = (char*)malloc(strlen(nome_fic));
+	strcpy(nome_fic, print.nome_fic);
+	
+	sem_down(sem[pct.ha_espaco]);
+	down(imp.fesp.acesso);
+	fifo_in(pct.fesp.mem, &print);
+	up(imp.fesp.acesso);
+	sem_up(sem[pct.ha_trabalho]);
+
+	sem_down(sem[print.espera]);
+	impp.imp[imp_ind].stat = 1;
+
+	return impp.imp[imp_ind].nome
+
+}

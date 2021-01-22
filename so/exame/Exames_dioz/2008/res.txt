@@ -1,0 +1,46 @@
+1 - 32 Mb / 4kb = 8000 páginas
+
+2 - 		loaded	nblk	nframe	access	modif
+	1ª - 	True	E3D		3195	True	False
+	2ª - 	False	F54A	?		False	False
+	3ª - 	True	125		4A5A	True	True
+	4ª - 	False	5C54	?		False	False
+
+3 - 
+
+void proc_list(void){
+	int i;
+	Node act = b_frm.pstart;
+
+	for(i=0; i<b_frm.n; i++){
+		printf("PID:%d\n", pct[act.pct_index].pid);
+		printf("Estado:%d\n", pct[act.pct_index].pstat);
+		printf("PnPag:%d\n", act.npag);
+		printf("NFrame:%d\n", act.nframe);
+
+		act = act->next;
+	}
+
+}
+
+4 - 
+
+unsigned long second_chance_locate(void){
+
+	int k;
+
+	for(k=0; k<K; k++){
+		if(pct[frame[k].pct_index].busy && pct[frame[k].pct_index].pag[frame[k].npag].loaded){
+			if (pct[frame[k].pct_index].pag[frame[k].npag].access==False){
+				swap_out(pct[frame[k].pct_index].pag[frame[k].npag].nframe, pct[frame[k].pct_index].pag[frame[k].npag].nblk);
+				return pct[frame[k].pct_index].pag[frame[k].npag].nframe;
+			}
+			else{
+				pct[frame[k].pct_index].pag[frame[k].npag].access = False;
+			}
+		}
+	}
+
+	return -1;
+
+}

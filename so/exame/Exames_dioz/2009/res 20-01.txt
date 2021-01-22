@@ -1,0 +1,81 @@
+1 - 
+
+void init_free_queue(){
+	int i;
+
+	free_queue.access = sem_create();
+	free_queue.notEmpty = sem_create();
+	free_queue.notFull = sem_create();
+
+
+	free_queue.idIdx = 0;
+	free_queue.outIdx = 0;
+
+	sem_up(free_queue.access);
+	
+	bw_queue.access = sem_create();
+	bw_queue.notEmpty = sem_create();
+	bw_queue.notFull = sem_create();
+
+	bw_queue.idIdx = 0;
+	bw_queue.outIdx = 0;
+
+	sem_up(bw_queue.access);
+
+	color_queue.access = sem_create();
+	color_queue.notEmpty = sem_create();
+	color_queue.notFull = sem_create();
+
+	color_queue.idIdx = 0;
+	color_queue.outIdx = 0;
+
+	sem_up(color_queue.access);
+
+	for(i=0; i<NORDS; i++){
+		free_queue.ord[i] = i;
+		sem_up(free_queue.notEmpty);
+		sem_up(bw_queue.notFull);
+		sem_up(color_queue.notFull);
+	}
+
+}
+
+2 - 
+void queue_in(Queue* queue, int po_idx){
+
+	sem_down(queue->notFull);
+	sem_down(queue->access);
+
+	queue->ord[queue->inIdx] = po_idx;
+	queue->inIdx = (queue->inIdx+1)%NORDS;
+
+	sem_up(queue->access);
+	sem_up(queue->notEmpty);
+
+}
+
+3 - 
+
+int print_file(const char* filename, int class){
+	Queue queue;
+	int i, ord_idx;
+
+	if (class==COLOR_PRINTING){
+		queue = color_queue;
+	}
+	else if(class==BW_PRINTING){
+		queue = bw_queue;
+	}
+	else return -1;
+
+	ord_idx = queue_out(free_queue);
+	po_pool[ord_idx].filename = filename;
+	po_pool[ord_idx].waitPoint = sem_create();
+	queue_in(queue, ord_idx);
+
+	sem_down(po_pool[ord_idx].waitPoint);
+	return po_pool[ord_idx].id;
+}
+
+4 - 
+Não faz sentido, pois é impossível estar cheio e existirem ordens de impressão livres.
