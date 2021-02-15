@@ -1,0 +1,33 @@
+Parte B
+
+1 - Os processos I/O intensivos irão ser previlegiados. Considerando um processo i/o intensivo e um processo computacionalmente intensivo, o processo computacionalmente intensivo irá esgotar os seus créditos mais rapidamente que o processo i/o intensivo. Portanto, o processo i/o intensivo poderá bloquear mais vezes, logo demorará mais tempo a esgotar todos os seus créditos. Só quando todos os processos esgotarem os seus créditos é que são recreditados.
+
+Pode ocorrer adiamento indefinido para processos cpu intensivos, embora seja improvável. Se existirem muitos processos i/o intensivos, e estes se encontrarem constantemente a bloquear, existe a hipótese dos processos cpu intensivos nunca serem recreditados, logo nunca conseguirão obter a posse do processador.
+
+2 - Minimo: CreditBase. Não tem valor máximo
+
+void wakeUp(unsigned int semIndex){
+
+	Binode *val
+
+	interrupts_disable();
+
+	fifoOut(sem[semIndex].queue, &val);
+	indicePCT = val->info;
+	pct[val->info].pstat = 2;
+	restore_context(indicePCT);
+	fifoIn(redToRun, val);
+
+}
+
+void recredit(void){
+
+	int i;
+
+	for(i=0; i<100; i++){
+		if(pct[i].busy){
+			pct[i].prior=pct[i].prior/2+CREDITBASE;
+		}
+	}
+
+}

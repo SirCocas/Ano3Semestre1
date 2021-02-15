@@ -1,0 +1,37 @@
+1 - Não são diferenciadas transições de sleep ou de timer run out no momento de alterar a prioridade de um processo.
+Logo, a prioridade de um processo é indiferente ao seu estado aquando da saída do estado run.
+
+2 - 
+
+void timerrunout(void){
+	
+	interrupt_disable();
+	save_context(pindex);
+
+	pct[pindex].pstat = 1;
+	pct[pindex].actualprior = (pct[pindex].actualprior+1)%8;
+
+	Binode bi;
+	bi.info = pindex;
+
+	fifo_in(redtorun[pct[pindex].actualprior], &bi);
+
+}
+
+3 - 
+
+void wakeup(unsigned int sem_index){
+
+	BINODE *bi;
+
+	interrupt_disable();
+	fifo_out(sem[sem_index].queue, &bi);
+	pct[bi->info].stat = 2;
+	fifo_in(redtorun[pct[bi->info].actualprior], &bi);
+
+}
+
+4 - 
+
+Se ocorrese a transição timer-run-out, não adicionaria nenhum valor à prioridade atual do processo.
+A prioridade apenas seria alterada em transições do tipo sleep.

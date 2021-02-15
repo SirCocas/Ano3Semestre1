@@ -1,0 +1,68 @@
+﻿Fins de linhas codificados em formato Windows.
+
+Teste 14012010 - parte B
+
+1. struct meuFifo {
+	BINODE* p_insercao;	/* este vai ser o ponteiro onde serão inseridos novos elementos */
+	BINODE* p_remocao;	/* este vai ser o ponteiro onde serão removidos elementos */
+    }; /* quando houver só um elemento, ambos apontarão para o mesmo objecto */
+
+    /* pedem-nos que a estrutura de dados se chame FIFO */
+    typedef struct meuFifo FIFO;
+
+
+2. Gestão do ambiente de multiprogramação: processos podem ser criados e destruídos. Dois novos estados: CREATED e TERMINATED.
+
+Não são precisos mais campos na estrutura de dados. Basta dizer que pstat vai ter mais valores:
+3 - CREATED
+4 - TERMINATED
+
+
+3.
+
+void update_temporal_data (void)
+{
+
+	unsigned numProcessos;
+	unsigned indicePCT;
+	BINODE* bino;
+
+	numProcessos = cam_size(redtorun);
+
+	realtovirtconv++;
+
+	bino = cam_get_first(redtorun);
+
+	while (bino != NULL)  {
+
+	    indicePCT = bino->info1;
+
+	    pct[indicePCT].waittime++;
+	    if (realtovirtconv == numProcessos)
+			pct[indicePCT].virtttime++;
+
+	    bino = cam_get_next(redtorun);
+	}
+
+	if (realtovirtconv == numProcessos)
+	    realtovirtconv = 0;
+
+}
+
+
+4.
+void wakeup (unsigned int sem_index)
+{
+    BINODE* bino;
+    FIFO* fcfs;
+    unsigned indicePCT;
+
+    interrupt_disabled();
+
+    restore_context(indicePCT);
+
+    bino = fifo_out(sem[sem_index].queue);
+
+    PCT[bino->info1].pstat = 2;
+    cam_in(redtorun, bino);
+}

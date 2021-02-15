@@ -1,0 +1,66 @@
+1 - Cada bloco tem 1024 bytes. Logo, foram preenchidos 2 blocos. Os outro 10 bytes estão no buffer de armazenamento.
+1024-10=1014.
+
+Stat = 1
+nChar = 2058
+content = ponteiro para o bloco inicial
+
+
+2 - R(1024). Se esse valor for ultrapassado, o conteúdo terá de ser guardado na memória de massa em blocos.
+
+3 -
+
+int openPrinter(void){
+	int i;
+	sem_down(comm.access);
+	if(nComChan==0){
+		sem_up(comm.access);
+		return -1;
+	}
+
+	nComChan-=1;
+
+	for(i=0; i<M; i++){
+		if (chan[i].stat==0){
+			chan[i].stat=1;
+			break;
+		}
+	}
+
+	sem_up(comm.access);
+}
+
+void systemPrint(unsigned int id){
+
+	int i, j;
+	char buf[R];
+	Fifo temp;
+
+	sem_down(comm.access);
+
+	j = comm.chanId.out.info;
+	comm.chanIn.out = comm.chanId.out.next;
+
+	comm.chan[j].stat = 2;
+
+	while (comm.chan[j].nChar>1024){
+		readBlock(comm.chan[j].content.info, &buf);
+		for(i=0; i<nChar; i++){
+			writeP(id, buf[i]);
+		}
+		comm.chan[j].nChar-=1024;
+		temp = comm.chan[j].content;
+		comm.chan[j].content = comm.chan[j].content.next;
+
+		temp.next = freeBlocks;
+		freeBlocks = temp;
+	}
+
+	for(i=0; i<comm.chan[j].nChar; i++){
+		writeP(id, comm.chan[j].buf[i]);
+	}
+	comm.chan[j].nChar = 0;
+	
+	sem_up(comm.access);
+
+}

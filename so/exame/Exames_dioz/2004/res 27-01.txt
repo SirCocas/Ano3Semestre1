@@ -1,0 +1,44 @@
+1 - Permissão read.
+
+2 - Duas Wait_Queues, uma para cada prioridade.
+
+3 - 
+
+void fifo_in(FIFO *fifo, PRINT_ORD *val){
+	fifo->ord[fifo->pout] = val;
+	fifo->pout = (fifo->pout+1)%K;
+}
+
+4 - 
+
+int run_printer(int print_id){
+
+	int fd, nb;
+	char *buffer, nbytes = 9999; /* ??? */
+
+	PRINT_ORD *val;
+
+	down(sem[imp.ha_trabalho]);
+
+	down(imp.fesp.acesso);
+	fifo_out(imp.fesp.mem, &val);
+	up(imp.fesp.acesso);
+
+	up(sem[imp.ha_espaco]);
+
+	buffer = (char*)malloc(sizeof(char)*nbytes);
+	fd = open(val->nomefich, O_RDONLY);
+	if(fd==1){
+		return -1;
+	}
+
+	nb = read(fd, buffer, nbytes);
+	close(fd);
+
+	val->imp_ind = print_id;
+	sem_up(val->, espera);
+
+	print(print_id, nb, buffer);
+
+	return 0;
+}

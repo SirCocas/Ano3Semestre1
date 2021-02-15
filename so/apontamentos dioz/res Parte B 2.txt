@@ -1,0 +1,99 @@
+﻿1 - Os processos podem ser acessados diretamente, sem ser preciso fazer uma pesquisa por todos os processos pelo seu pid (com custo linear).
+
+2 - Seria preciso adicionar uma variável com a indicação de estar ou não presente na memória principal. Teria de ser adicionada uma variável inteira para saber em que bloco se encontrava na área de swapping.
+
+3 -
+
+
+unsigned int sem_create(void){
+	int i;
+	for(i=0; i<200; i++)
+		if(sem[i].queue==NULL){
+			sem[i].queue = (Queue*)malloc(sizeof(Queue*));
+			sem[i]val = 0;
+			return i;
+		}
+	return -1;
+}
+
+
+void sem_destroy(unsigned int sem_index){
+	sem[sem_index].val = -1;
+	while (sem[sem_index].queue.pout_val!=Null){
+		wakeup(sem_index);
+	}
+	sem[sem_index].queue = NULL;
+}
+
+void sem_down(unsigned int sem_index){
+	interrupts_disable();
+	if(sem[sem_index].val>0)
+		sem[sem_index].val-=1;
+	else{
+		sleep(sem_index);
+	}
+	interrupts_enable();
+}
+
+void sem_up(unsigned int sem_index){
+	interrupts_disable();
+	int info;
+	if(sem[sem_index].queue.pout_val!=NULL)
+		wakeup(sem_index);
+	else{
+		sem[sem_index].val += 1;
+	}
+	interrupts_enable();
+}
+
+4 - 
+
+void dispatch(void){
+	interrupts_disable();
+	int i, j;
+	BINODE v;
+	for(i=0; i<3; i++){
+		fifo_out(redtorun[i], &v);
+		if(v!=Null && pct[v->info].pstat==2){
+			pct[v->info].pstat = 0;
+			pindex = v->info;
+			restore_context(pindex);
+			return;
+		}
+	}
+
+}
+
+void timerrunout(void){
+	BINODE *bi;
+
+	interrupts_disable();
+	bi->info = pindex;
+	pct[pindex].pstat = 2;
+	save_context(pindex);
+	fifo_in(redtorun[pct[pindex].prior], bi);
+}
+
+void sleep(unsigned int sem_index){
+	BINODE *bi
+
+	interrupts_disable();
+	pct[pindex].pstat = 1;
+	bi->info = pindex;
+	save_context(pindex);
+	fifo_in(sem[sem_index].queue, bi);
+}
+
+void wakeup(unsigned int sem_index){
+	int pctInd;
+	BINODE *bi;
+
+	interrupt_disabled();
+
+    bino = fifo_out(sem[sem_index].queue);
+
+    pct[bino->info].pstat = 2;
+    
+    fifo_in(redtorun[pct[bino->info].prior], bino);
+
+}

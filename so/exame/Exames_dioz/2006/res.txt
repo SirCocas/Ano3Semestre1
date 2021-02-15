@@ -1,0 +1,42 @@
+a - 
+
+typedef struct FIFO {
+	char fifo[K];
+	int n;
+	int in_index;
+	int out_index;
+}
+
+b - 
+
+Semáforos de sincronização.
+fi_empty = k
+fo_full = 0;
+
+c - 
+
+void readNBytes(int n, char buff[]){
+	int bufId = getBuffId();
+	int i=0;
+
+	for(i=0; i<n; i++){
+		sem_down(buf[bufId].fi_empty);
+		fifoOUT(buf[bufId].f_out, &buff[i]);
+	}
+
+}
+
+d - 
+
+void Next_Session(void){
+
+	int id = getPortId();
+
+	sem_down(env[id].access);
+
+	env[id].sess_act = (env[id].sess_act+1)%10;
+
+	sem_up(env[id].access);
+
+	refreshScreen(env[id].userid);
+}

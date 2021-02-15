@@ -1,0 +1,34 @@
+1 - Sim, no caso de um processo um nível de prioridade mais baixa que nunca tem acesso ao processador, o seu nível de prioridade é sempre o mesmo.
+Assim, se houver sempre processos com prioridade superior, esses vão sempre ser executados antes do primeiro processo.
+
+2 - São processos com o seu estado bloqueado, numa fila de espera de um semáforo.
+
+3 - 
+
+BINODE *sched(void){
+	int i;
+	BINODE *bi;
+
+	for(i=7; i<=0; i--){
+		fifo_out(redtorun[i], &bi);
+		if(bi!=NULL){
+			return bi;
+		}
+	}
+
+	return NULL;
+}
+
+4 - 
+
+void sleep(unsigned int sem_index){
+
+	BINODE *bi
+
+	interrupts_disable();
+	pct[pindex].pstat = 1;
+	bi->info = pindex;
+	save_context(pindex);
+	fifo_in(sem[sem_index].queue, bi);
+
+}

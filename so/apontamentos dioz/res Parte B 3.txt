@@ -1,0 +1,235 @@
+1 - Cria o semáforo o processo que envia a mensagem e bloqueia, ou seja, o async_block_send. Destrói o semáforo o processo que lê a mensagem, ou seja, o async_block_rec.
+
+2 - O rec tem de saber se a mensagem enviada foi enviada em modo bloqueante, ou não, para poder efetuar o up do semáforo, ou não.
+
+3 - Sincronização bloqueante-> 1 Nó para cada processo -> N nós
+Sincronização não-bloqueante->?
+
+4 - 
+
+INFO *msg_search(unsigned int source_id, unsigned int reg_index){
+	
+	int n;
+	INFO *s;
+
+	if (reg_index>=N){
+		return NULL;
+	}
+
+	sem_down(comm.access);
+
+	if(comm.reg[reg_index].busy){
+		s = comm.reg[reg_index].list;
+		do{
+			if(s==NULL){
+				sem_up(comm.access);
+				return NULL;
+			}
+			if(s->id==source_id){
+				sem_up(comm.access);
+				return s;
+			}
+			s = s->next;
+		}while(s!=NULL);
+	}
+	
+	sem_up(comm.access);
+
+	return NULL;
+}
+
+void msg_in(INFO *new, unsigned int reg_index){
+
+	sem_down(comm.access);
+
+	if(comm.reg[reg_index].busy){
+		INFO* s;
+		s = comm.reg[reg_index].list;
+		if(s==NULL){
+			list = new;
+		}
+		else{
+			while(s->next!=NULL){
+				s = s->next;
+			}
+			s->next = new;
+			new->ant = s;
+		}
+
+	}
+	else{
+		comm.reg[reg_index].busy = 1;
+		list = new;
+	}
+	
+	sem_up(comm.access);
+
+}
+
+void msg_out(INFO *old, unsigned int reg_index){
+
+	sem_down(comm.access);
+
+	if(comm.reg[reg_index].busy){
+		old = comm.reg[reg_index].list;
+		list = old.next;
+		old.next = NULL;
+		list.ant = NULL;
+	}
+	else{
+		old = NULL;
+	}
+
+	sem_up(comm.access);
+
+}
+
+5 - 
+
+int non_block_send(unsigned int source_id, unsigned int dest_it, Message m){
+
+	Info *i;
+
+	if(source_id==dest_id)
+		return 1;
+
+	sem_down(comm.access);
+
+	i->id = source_id;
+	i->wait = 0;
+	i->m = m;
+	i->arrival = 0;
+
+	if(!comm.reg[source_it].busy){
+		sem_up(comm.access);
+		return 2;
+	}
+
+	if(!comm.reg[dest_it].busy){
+		sem_up(comm.access);
+		return 3;
+	}
+
+	msg_in(i, dest_id);
+
+	sem_up(comm.access);
+
+	return 0;
+}
+
+int non_block_rec(unsigned int source_id, unsigned int dest_it, Message *pm, int *p_is_mess){
+
+	Info *i;
+
+	if(source_id==dest_id)
+		return 1;
+
+	sem_down(comm.access);
+
+	if(!comm.reg[source_it].busy){
+		sem_up(comm.access);
+		return 2;
+	}
+
+	if(!comm.reg[dest_it].busy){
+		sem_up(comm.access);
+		return 3;
+	}
+
+	msg_out(i, dest_id);
+	while(i->id!=source_id && i->arrival==0){
+		msg_in(i, dest_id);
+		i->arrival = 1;
+		msg_out(i, dest_id);
+		i = i->next;
+	}
+
+	if(i->arrival==1){
+		*p_is_mess = 0;
+	}
+	else{
+		*p_is_mess = 1;
+		*pm = i->m;
+		i = i->ant;
+		*pm->next = NULL;
+		*pm->ant = NULL;
+		i->next = NULL;
+	}
+
+	while(i->arrival!=0){
+		i->arrival = 0;
+		i = i->ant;
+	}
+
+	sem_up(comm.access);
+	if(*p_is_mess)
+		return 0;
+	else
+		return 4;
+}
+
+int async_block_send(unsigned int source_id, unsigned int dest_id, Message m){
+
+	Info *i;
+
+	if(source_id==dest_id)
+		return 1;
+
+	sem_down(comm.access);
+
+	i->id = source_id;
+	i->wait = sem_create();
+	i->m = m;
+	i->arrival = 0;
+
+	if(!comm.reg[source_it].busy){
+		sem_up(comm.access);
+		return 2;
+	}
+
+	if(!comm.reg[dest_it].busy){
+		sem_up(comm.access);
+		return 3;
+	}
+	... create semaphore ...
+	msg_in(i, dest_id);
+
+	sem_up(comm.access);
+
+	return 0;
+}
+
+int async_block_rec(unsigned int source_id, unsigned int dest_id, Message *pm){
+
+	...
+}
+
+6 - 
+
+int register_in(unsigned int id){
+	sem_down(comm.access);
+	if(id>=100){
+		sem_up(comm.access);
+		return 2;
+	}
+	if(comm.reg[id].busy){
+		sem_up(comm.access);
+		return 1;
+	}
+
+	sem_up(comm.access);
+	return 0;
+}
+
+int register_out(unsigned int id){
+	sem_down(comm.access);
+	if(id>=100 || !comm.reg[id].busy){
+		sem_up(comm.access);
+		return 1;
+	}
+
+	...
+
+	sem_up(comm.access);
+	return 0;
+}

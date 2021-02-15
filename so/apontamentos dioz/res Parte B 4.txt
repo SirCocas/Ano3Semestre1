@@ -1,0 +1,66 @@
+1 - 
+a - 5000
+b - 1000
+c - 5000
+d - 8000
+
+2 - 
+	loaded	nframe	nblk	access	modif
+1 - True	395		1023D	1		0
+2 - False	?		F54A	0		0
+3 - True	45A		25		1		1
+4 - False	?		5C567	0		0
+
+3 - 
+N: 3
+pct_index: 1C, 1C, 2A
+npag:3, 5, 8
+nobjt: 211, 385, 500
+
+4 - 
+O espaço de endereçamento pode estar totalmente fora da memória principal se:
+-> Está no estado ready-to-run, mas não há espaço na memória principal;
+-> Está no estado blocked, e foi retirado da memória principal, porque o espaço era necessário para outro processo. Há espaço em memoria principal, mas ainda não foi reposto porque está no estado blocked;
+-> Está no estado blocked, e não há espaço e memória principal.
+
+5 - 
+
+void full_swap_out(unsigned int pct_index){
+
+	BINODE *val = b_frm.pstart;
+	int n = b_frm.n;
+	int i=0;
+
+	while(i<n){
+
+		if(val->pct_index==pct_index){
+			swap_out(val->npag, val->nobjt);
+		}
+
+		val = val->next;
+	}
+
+	pct[pct_index].pstat = 5;
+
+}
+
+6 - 
+unsigned long NRU_gen_replace(void){
+	...
+}
+
+7 - 
+void proc_list(void){
+	int i;
+	Node act = b_frm.pstart;
+
+	for(i=0; i<b_frm.n; i++){
+		printf("PID:%d\n", pct[act.pct_index].pid);
+		printf("Estado:%d\n", pct[act.pct_index].pstat);
+		printf("PnPag:%d\n", act.npag);
+		printf("NFrame:%d\n", act.nframe);
+
+		act = act->next;
+	}
+
+}

@@ -1,0 +1,41 @@
+1 - 
+
+	loaded	pag_badd	pag_blk	acss	modif
+1-	True	195			1023D	1		0
+2-	False	?			F54A	0		0
+3-	True	5A			25		1		1
+4-	False	?			5C567	0		0
+
+2 - 
+O processo deve ser posto no estado blocked, enquanto outro processo deve ser agendado para execução.
+Primeiramente, deve ser encontrado um local na memória para transferir a página.
+Se não existirem frames livres, deve escolher uma página para remover e, caso tenha sido modificada, escrever na área de swapping.
+Deve ser posto em execução a transferência da área de swapping para a memória principal.
+Quando a transferência estiver concluída, o processo deve ser posto no estado ready-to-run.
+
+
+3 - 
+void full_swap_out(unsigned int pct_index){
+
+	BINODE *val = b_frm.pstart;
+	int n = b_frm.n;
+	int i=0;
+
+	while(i<n){
+
+		if(val->pct_index==pct_index){
+			swap_out(val->npag, val->nobjt);
+		}
+
+		val = val->next;
+	}
+
+	pct[pct_index].pstat = 5;
+
+}
+
+4 - 
+void NRU_replace(unsigned int npag){
+
+}
+
