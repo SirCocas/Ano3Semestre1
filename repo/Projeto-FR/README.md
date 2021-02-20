@@ -1,0 +1,3 @@
+- [x] colocar IPs no DMZ e Data Center (formalidade, mas podem pedir pings e mais vale prevenir do que remediar)
+- [x] make sure it all works
+- [ ] app python -> clientes têm de ter IPs diferentes (arranjar maneira de dar setup a ip) -> cleanup talvez?
